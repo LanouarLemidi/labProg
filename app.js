@@ -14,9 +14,9 @@ app.get('/contact',function(req,res,next){
 });
 app.get('/module/:mod',function(req,res,next){
     if(req.params.mod>=1 && req.params.mod<=6)
-        res.send('Module '+req.params.mod+"<br><a href='/'>accueil</a>");
+        res.render('./pages/module.ejs', {modu: req.params.mod});
     else
-        res.send("MODULE INCONNU<br><a href='/'>accueil</a>");
+    res.render('./pages/module.ejs', {modu: "INTROUVABLE"});
     
 });
 app.use(function(req, res){
