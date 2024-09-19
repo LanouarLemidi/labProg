@@ -1,23 +1,53 @@
+/* 
+Auteur: Anouar Lahmidi
+Date: 9/18/2024
+Fichier: app.js
+Description: Fichier serveur pour le lab 3
+*/
+
 console.log("Page en marche");
 
 var express = require('express');
 var app = express();
+let moduleStates = {
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0
+};
 app.set('view engine', 'ejs');
 
 app.get('/',function(req,res,next){
-    // res.send('<h1>Bienvenue dans mon super site!</h1>');
-    res.send('<a href=contact>contact</a>')
+    res.render('./pages/accueil.ejs')
 });
 app.get('/contact',function(req,res,next){
-    // res.send('<p>Me contacter:<br>billgates@hotmail.com</p>');
-    res.send("<table><tr><td>Nom:</td><td>Anouar Lahmidi</td></tr><tr><td>Code postale:</td><td>J6Z 2V4</td></tr><tr><td>Couriel:</td><td>lahmidianouar@gmail.com</td></tr><tr><td>Téléphone:</td><td>(438) 503-5864</td></tr></table><br><a href='/'>accueil</a>");
+    res.render('./pages/contact.ejs');
 });
 app.get('/module/:mod',function(req,res,next){
-    if(req.params.mod>=1 && req.params.mod<=6)
-        res.render('./pages/module.ejs', {modu: req.params.mod});
+    const mod = req.params.mod;
+    if (moduleStates.hasOwnProperty(mod))
+    {
+        moduleStates[mod] = moduleStates[mod] ? 0 : 1;
+        res.render('./pages/module.ejs', { modu: mod, modul: moduleStates[mod] });
+    }
     else
-    res.render('./pages/module.ejs', {modu: "INTROUVABLE"});
-    
+    {
+        res.render('./pages/module.ejs', { modu: "INTROUVABLE" });
+    }
+});
+app.get('/controle',function(req,res,next){
+    res.render('./pages/control.ejs', {modul: moduleStates});
+});
+app.get('/reset',function(req,res,next){
+    moduleStates[1]=0;
+    moduleStates[2]=0;
+    moduleStates[3]=0;
+    moduleStates[4]=0;
+    moduleStates[5]=0;
+    moduleStates[6]=0;
+    res.render('./pages/control.ejs', {modul: moduleStates});
 });
 app.use(function(req, res){
     res.writeHead(404);
