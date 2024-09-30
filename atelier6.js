@@ -1,21 +1,21 @@
 var express = require('express');
 var app = express();
+app.set('view engine', 'ejs');
 
 app.get('/',function(req,res,next){
-    res.send('<h1>Bienvenue dans mon super site!</h1>')
+    res.render('pages/index');
 });
 
 app.get('/contact',function(req,res,next){
-    res.send("<p>Me contacter:<br>billgates@hotmail.com</p><a href='/'>retour</a>")
+    res.render('pages/contact');
 });
 
 app.get('/recherche/:annee/:mois',function(req,res,next){
-    res.send('Vous êtes dans la section recherche. Voici les résultats pour la date de '+req.params.mois+' '+req.params.annee+"<br><a href='/'>retour</a>");
+    res.render('pages/recherche',{annee: req.params.annee, mois: req.params.mois});
 });
 
 app.use(function(req,res){
-    res.writeHead(404);
-    res.end('ERREUR 404');
+    res.render('pages/erreur')
 });
 
 app.listen(8080);
