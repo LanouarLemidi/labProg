@@ -18,5 +18,10 @@ app.use(function(req,res){
     res.render('pages/erreur')
 });
 
-app.listen(8080);
+var server =app.listen(8080);
+var io = require('socket.io')(server);
 console.log('Serveur lancé');
+
+io.sockets.on('connection', function(socket){
+    console.log('Un client est connecté !');
+});
