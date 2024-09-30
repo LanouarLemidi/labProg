@@ -30,7 +30,8 @@
             <br>
             Le serveur à été lancé le <span id="dateStart"></span> à <span id="heureStart"></span>
             <br>
-            Le client à été lancé le <span id="date"></span> à <span id="heure"></span>
+            Le client à été lancé le <span id="date"></span> à <span id="heureClient"></span>
+            <br><span id="heure"></span>
 
         </div>
 
@@ -53,15 +54,35 @@
         $(document).ready(function () {
             var socket = io.connect('http://localhost:8080');
             socket.on('start', function (data) {
-                $('#dateStart').html(data.dateTime.jour+'/'+data.dateTime.mois+'/'+data.dateTime.annee);
-                $('#heureStart').html(data.dateTime.heure+':'+data.dateTime.minute+':'+data.dateTime.seconde);
+                $('#dateStart').text(data.dateTime.jour + '/' + data.dateTime.mois + '/' + data.dateTime.annee);
+                $('#heureStart').text(data.dateTime.heure + ':' + data.dateTime.minute + ':' + data.dateTime.seconde);
             });
             socket.on('message', function (data) {
-                $('#numCon').html(data.idConnect);
-                $('#date').html(data.dateTime.jour+'/'+data.dateTime.mois+'/'+data.dateTime.annee);
-                $('#heure').html(data.dateTime.heure+':'+data.dateTime.minute+':'+data.dateTime.seconde);
+                $('#numCon').text(data.idConnect);
+                $('#date').text(data.dateTime.jour + '/' + data.dateTime.mois + '/' + data.dateTime.annee);
+                $('#heureClient').text(data.dateTime.heure + ':' + data.dateTime.minute + ':' + data.dateTime.seconde);
             });
         });
+    </script>
+
+    <script>
+
+        $(function () {
+
+            function Horloge() {
+
+                var laDate = new Date();
+
+                var h = laDate.getHours().toLocaleString('fr-CA', {minimumIntegerDigits: 2,useGrouping: false}) + ":" + laDate.getMinutes().toLocaleString('fr-CA', {minimumIntegerDigits: 2,useGrouping: false}) + ":" + laDate.getSeconds().toLocaleString('fr-CA', {minimumIntegerDigits: 2,useGrouping: false});
+
+                $('#heure').text(h);
+
+            }
+
+            setInterval(Horloge, 1000);
+
+        });
+
     </script>
 
 
