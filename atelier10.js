@@ -1,3 +1,10 @@
+/* 
+Auteur: Anouar Lahmidi
+Date: 9/30/2024
+Fichier: atlier10.js
+Description: Fichier serveur pour le atelier 10
+*/
+
 var express = require('express');
 var app = express();
 app.set('view engine', 'ejs');
@@ -15,7 +22,7 @@ app.get('/recherche/:annee/:mois', function (req, res, next) {
 });
 
 app.use(function (req, res) {
-    res.render('pages/erreur')
+    res.status(404).render('pages/erreur');
 });
 
 function getCurrentDateTime() {
@@ -43,4 +50,9 @@ io.sockets.on('connection', function (socket) {
     console.log('Un client est connecté !');
     socket.emit('start',{dateTime: dateTimeStart});
     socket.emit('message', {idConnect: ++idConnect, dateTime: dateTime});
+    socket.on('alarme', function(alarme){
+        console.log('Un client me parle: ' + alarme);
+        socket.emit('newAlarme',{alarme: alarme});
+        socket.broadcast.emit('newAlarme', {alarme: alarme});
+    });
 });

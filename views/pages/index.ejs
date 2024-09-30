@@ -1,3 +1,10 @@
+<!-- 
+Auteur: Anouar Lahmidi
+Date: 9/30/2024
+Fichier: index.ejs
+Description: page index atelier 10
+-->
+
 <!DOCTYPE html>
 
 <html lang="fr">
@@ -31,7 +38,19 @@
             Le serveur à été lancé le <span id="dateStart"></span> à <span id="heureStart"></span>
             <br>
             Le client à été lancé le <span id="date"></span> à <span id="heureClient"></span>
-            <br><span id="heure"></span>
+            <br>
+            <span id="heure"></span>
+            <form onsubmit="return false">
+                Entrée votre heure d'alarme désiré
+                <input type="time" id="alarme">
+                <input type="button" value="Enregistrer" id="poke">
+            </form>
+            L'alarme est programmé pour <span id="heureAlarme"></span>
+            <br>
+            <input type="button" value="Éteindre alarme" id="snooze">
+            (se fait juste si il n'est plus l'heure d'alarme)
+            <br>
+            <span id="alarmeOn" style="color: red; font-size: 200%;"></span>
 
         </div>
 
@@ -53,6 +72,8 @@
     <script>
         $(document).ready(function () {
             var socket = io.connect('http://localhost:8080');
+            var heureAlarme;
+            var minuteAlarme;
             socket.on('start', function (data) {
                 $('#dateStart').text(data.dateTime.jour + '/' + data.dateTime.mois + '/' + data.dateTime.annee);
                 $('#heureStart').text(data.dateTime.heure + ':' + data.dateTime.minute + ':' + data.dateTime.seconde);
@@ -62,27 +83,36 @@
                 $('#date').text(data.dateTime.jour + '/' + data.dateTime.mois + '/' + data.dateTime.annee);
                 $('#heureClient').text(data.dateTime.heure + ':' + data.dateTime.minute + ':' + data.dateTime.seconde);
             });
+            $('#poke').click(function () {
+                socket.emit('alarme', $('#alarme').val());
+            });
+            socket.on('newAlarme', function (data) {
+                heureAlarme= data.alarme.split(":")[0];
+                minuteAlarme= data.alarme.split(":")[1];
+                $('#heureAlarme').text(data.alarme);
+            });
+            $('#snooze').click(function(){
+                $('#alarmeOn').text('');
+            });
+
+            $(function () {
+
+                function Horloge() {
+
+                    var laDate = new Date();
+
+                    var h = laDate.getHours().toLocaleString('fr-CA', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + laDate.getMinutes().toLocaleString('fr-CA', { minimumIntegerDigits: 2, useGrouping: false }) + ":" + laDate.getSeconds().toLocaleString('fr-CA', { minimumIntegerDigits: 2, useGrouping: false });
+
+                    $('#heure').text(h);
+
+                    if(heureAlarme == laDate.getHours() && minuteAlarme == laDate.getMinutes())
+                        $('#alarmeOn').text('Alarme');
+                }
+
+                setInterval(Horloge, 1000);
+
+            });
         });
-    </script>
-
-    <script>
-
-        $(function () {
-
-            function Horloge() {
-
-                var laDate = new Date();
-
-                var h = laDate.getHours().toLocaleString('fr-CA', {minimumIntegerDigits: 2,useGrouping: false}) + ":" + laDate.getMinutes().toLocaleString('fr-CA', {minimumIntegerDigits: 2,useGrouping: false}) + ":" + laDate.getSeconds().toLocaleString('fr-CA', {minimumIntegerDigits: 2,useGrouping: false});
-
-                $('#heure').text(h);
-
-            }
-
-            setInterval(Horloge, 1000);
-
-        });
-
     </script>
 
 
