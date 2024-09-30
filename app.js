@@ -34,19 +34,16 @@ app.get('/module/:mod',function(req,res,next){
     }
     else
     {
-        res.render('./pages/module.ejs', { modu: "INTROUVABLE" });
+        res.render('./pages/module.ejs', { modu: "INTROUVABLE", modul: 0 });
     }
 });
 app.get('/controle',function(req,res,next){
     res.render('./pages/control.ejs', {modul: moduleStates});
 });
 app.get('/reset',function(req,res,next){
-    moduleStates[1]=0;
-    moduleStates[2]=0;
-    moduleStates[3]=0;
-    moduleStates[4]=0;
-    moduleStates[5]=0;
-    moduleStates[6]=0;
+    for(var i =1;i<=6;i++)
+        moduleStates[i]=0;
+
     res.render('./pages/control.ejs', {modul: moduleStates});
 });
 app.use(function(req, res){

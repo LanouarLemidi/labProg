@@ -9,59 +9,26 @@ Description: page de controle du lab 3
 
 <html>
 
-  <head>
+<head>
     <%- include('../partials/head') %>
-  </head>
+</head>
 
-  <body>
+<body>
     <header>
         <%- include('../partials/header') %>
     </header>
-    <h1><a href="/module/1">Module 1</a></h1>
 
-    <% if(modul[1]) { %>
-        <button style="background-color: green;">MODULE 1</button>
-    <%}else{%>
-        <button style="background-color: red;">MODULE 1</button>
-    <%}%>
 
-    <h1><a href="/module/2">Module 2</a></h1>
+    <% for(var i=1;i<=6;i++) { %>
 
-    <% if(modul[2]) { %>
-        <button style="background-color: green;">MODULE 2</button>
-    <%}else{%>
-        <button style="background-color: red;">MODULE 2</button>
-    <%}%>
+        <h1><a href="/module/<%=i%>">Module <%=i%></a></h1>
 
-    <h1><a href="/module/3">Module 3</a></h1>
+        <% if(modul[i]) { %>
+            <button style="background-color: green;">MODULE <%=i%></button>
+        <%}else{%>
+            <button style="background-color: red;">MODULE <%=i%></button>
+        <%}%>
 
-    <% if(modul[3]) { %>
-        <button style="background-color: green;">MODULE 3</button>
-    <%}else{%>
-        <button style="background-color: red;">MODULE 3</button>
-    <%}%>
-    <h1><a href="/module/4">Module 4</a></h1>
-
-    <% if(modul[4]) { %>
-        <button style="background-color: green;">MODULE 4</button>
-    <%}else{%>
-        <button style="background-color: red;">MODULE 4</button>
-    <%}%>
-
-    <h1><a href="/module/5">Module 5</a></h1>
-
-    <% if(modul[5]) { %>
-        <button style="background-color: green;">MODULE 5</button>
-    <%}else{%>
-        <button style="background-color: red;">MODULE 5</button>
-    <%}%>
-
-    <h1><a href="/module/6">Module 6</a></h1>
-
-    <% if(modul[6]) { %>
-        <button style="background-color: green;">MODULE 6</button>
-    <%}else{%>
-        <button style="background-color: red;">MODULE 6</button>
     <%}%>
 
     <br>
@@ -71,7 +38,7 @@ Description: page de controle du lab 3
     <footer>
         <%- include('../partials/footer') %>
     </footer>
-    
-  </body>
+
+</body>
 
 </html>
