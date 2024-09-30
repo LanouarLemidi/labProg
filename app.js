@@ -7,6 +7,8 @@ Description: Fichier serveur pour le lab 3
 
 console.log("Page en marche");
 
+var mqtt = require('mqtt');
+var client  = mqtt.connect('mqtt://127.0.0.1:1883');
 var express = require('express');
 var app = express();
 let moduleStates = {
@@ -17,6 +19,11 @@ let moduleStates = {
     5: 0,
     6: 0
 };
+
+client.on('connect', function(){
+    console.log("MQTT connecté!");
+});
+
 app.set('view engine', 'ejs');
 
 app.get('/',function(req,res,next){
@@ -51,3 +58,4 @@ app.use(function(req, res){
     res.end("Erreur 404: Page introuvable");
 });
 app.listen(8080);
+
