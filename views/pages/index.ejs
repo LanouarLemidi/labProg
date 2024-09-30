@@ -26,6 +26,12 @@
 
             <h1>Bienvenue dans mon super site!</h1>
 
+            Votre êtes bien connecté numéro <span id="numCon"></span>
+            <br>
+            Le serveur à été lancé le <span id="dateStart"></span> à <span id="heureStart"></span>
+            <br>
+            Le client à été lancé le <span id="date"></span> à <span id="heure"></span>
+
         </div>
 
     </main>
@@ -39,10 +45,23 @@
     </footer>
 
 
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="/socket.io/socket.io.js"></script>
+
     <script>
-        var socket = io.connect('http://localhost:8080');
+        $(document).ready(function () {
+            var socket = io.connect('http://localhost:8080');
+            socket.on('start', function (data) {
+                $('#dateStart').html(data.dateTime.jour+'/'+data.dateTime.mois+'/'+data.dateTime.annee);
+                $('#heureStart').html(data.dateTime.heure+':'+data.dateTime.minute+':'+data.dateTime.seconde);
+            });
+            socket.on('message', function (data) {
+                $('#numCon').html(data.idConnect);
+                $('#date').html(data.dateTime.jour+'/'+data.dateTime.mois+'/'+data.dateTime.annee);
+                $('#heure').html(data.dateTime.heure+':'+data.dateTime.minute+':'+data.dateTime.seconde);
+            });
+        });
     </script>
 
 
