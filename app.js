@@ -1,8 +1,8 @@
 /* 
 Auteur: Anouar Lahmidi
-Date: 9/18/2024
+Date: 9/30/2024
 Fichier: app.js
-Description: Fichier serveur pour le lab 3
+Description: Fichier serveur pour l'atelier 11
 */
 
 console.log("Page en marche");
@@ -29,8 +29,15 @@ client.on('connect', function(){
 });
 
 client.on('message', function(topic, message) {
-    console.log(topic.toString());
-    console.log(message.toString());
+    var target;
+    if(topic.includes('MODULE')){
+        target = topic.split('/')[1];
+        console.log(target);
+        if(message=='on')
+            moduleStates[target]=1;
+        else if(message=='off')
+            moduleStates[target]=0;
+    }
 });
 
 app.set('view engine', 'ejs');
