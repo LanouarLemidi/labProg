@@ -20,8 +20,12 @@ let moduleStates = {
     6: 0
 };
 
+
+
 client.on('connect', function(){
     console.log("MQTT connecté!");
+    client.subscribe('MODULE/#');
+    client.publish('MODULE','le serveur vous dit bonjour');
 });
 
 app.set('view engine', 'ejs');
