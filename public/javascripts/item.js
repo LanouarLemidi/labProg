@@ -19,22 +19,14 @@ class ItemList {
         return this.tab.length;
     }
     removeItemById(id){
-        for(var i=0; i<this.getLength(); i++){
-            if(this.tab[i].id == id){
-                this.tab.splice(i, 1);
-                return 1;
-            }
-        }
-        return 0;
+        const originalLength = this.getLength();
+        this.tab = this.tab.filter(item => item.id != id);
+        return this.getLength() < originalLength ? 1 : 0;
     }
     removeItemByName(nom){
-        for(var i=0; i<this.getLength(); i++){
-            if(this.tab[i].nom == nom){
-                this.tab.splice(i, 1);
-                return 1;
-            }
-        }
-        return 0;
+        const originalLength = this.getLength();
+        this.tab = this.tab.filter(item => item.nom != nom);
+        return this.getLength() < originalLength ? 1 : 0;
     }
     getLastItemId(){
         var length = this.getLength()

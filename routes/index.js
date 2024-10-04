@@ -22,6 +22,15 @@ io.on('connection', function(socket) {
     itemList.add(itemTmp);
     socket.emit('newItem', {id : itemTmp.id, date : itemTmp.date, nom : itemTmp.nom, prix : itemTmp.prix});
   });
+  socket.on('deleteID', function(data) {
+    itemList.removeItemById(data.id);
+  });
+  socket.on('deleteNom', function(data) {
+    itemList.removeItemByName(data.nom);
+  });
+  socket.on("display", function(message) {
+    console.log(message);
+  });
 });
 
 module.exports = router;
