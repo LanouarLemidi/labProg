@@ -1,3 +1,9 @@
+/* 
+Auteur: Anouar Lahmidi
+Date: 10/04/2024
+Fichier: item.js
+Description: Fichier classe item et itemList
+*/
 class Item {
     constructor(nom,prix, itemList){
         var _date = new Date();

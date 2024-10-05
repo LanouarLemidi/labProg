@@ -1,3 +1,9 @@
+/* 
+Auteur: Anouar Lahmidi
+Date: 10/04/2024
+Fichier: app.js
+Description: Fichier serveur pour le lab5
+*/
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');

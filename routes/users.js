@@ -1,3 +1,9 @@
+/* 
+Auteur: Anouar Lahmidi
+Date: 10/04/2024
+Fichier: user.js
+Description: Fichier serveur pour l'atelier 5
+*/
 var express = require('express');
 var router = express.Router();
 
