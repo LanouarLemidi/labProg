@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head') %>
+</head>
+
+<body class="container">
+  <header>
+
+    <%- include('../partials/header') %>
+
+  </header>
+
+  <main>
+    <% if(rows[id].niveauDroit==0) { %>
+      <p>
+        <%= rows[id].texte %>
+      </p>
+      <% }else if (rows[id].niveauDroit==1) { %>
+        <form action="/change" method="post">
+          Message
+          <br />
+          <input type="hidden" value="<%= rows[id].id %>" name="id">
+          <input type="hidden" value="<%= rows[id].niveauDroit %>" name="droit">
+          <input type="text" value="<%= rows[id].texte %>" name="texte">
+          <br />
+          <input type="submit" value="Save">
+        </form>
+        <% }else if (rows[id].niveauDroit==2) { %>
+          <form action="/change" method="post">
+            Message
+            <br />
+            <input type="hidden" value="<%= rows[id].id %>" name="id">
+            <input type="hidden" value="<%= rows[id].niveauDroit %>" name="droit">
+            <input type="text" value="<%= rows[id].texte %>" name="texte">
+            <br />
+            Password
+            <br />
+            <input type="text" value="<%= rows[id].password %>" name="password">
+            <br />
+            <input type="submit" value="Save">
+          </form>
+          <% }else if (rows[id].niveauDroit==3) { %>
+            <table class="table table-striped">
+              <tr>
+                <th>Login</th>
+                <th>Message</th>
+                <th>Password</th>
+                <th></th>
+              </tr>
+              <% rows.forEach(element=> {%>
+                <tr>
+                  <form action="/change" method="post">
+                    <td>
+                      <input type="hidden" value="<%= element.id %>" name="id">
+                      <input type="hidden" value="<%= element.niveauDroit %>" name="droit">
+                      <%= element.login %>
+                    </td>
+                    <td>
+                      <input type="text" value="<%= element.texte %>" name="texte">
+                    </td>
+                    <td>
+                      <input type="text" value="<%= element.password %>" name="password">
+                    </td>
+                    <td>
+                      <input type="submit" value="Save">
+                    </td>
+                  </form>
+                </tr>
+                <% }) %>
+            </table>
+            <% } %>
+  </main>
+
+  <footer>
+
+    <%- include('../partials/footer') %>
+
+  </footer>
+
+</body>
+
+</html>
