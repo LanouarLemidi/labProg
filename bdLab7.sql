@@ -34,8 +34,8 @@ DELETE FROM `utilisateurs`;
 INSERT INTO `utilisateurs` (`id`, `login`, `password`, `niveauDroit`, `texte`) VALUES
 	(1, 'droit0', '123', 0, 'banane'),
 	(2, 'droit1', '456', 1, 'de'),
-	(3, 'droit2', '789', 2, 'batman s\'tun looser'),
-	(4, 'droit3', '102', 3, 'pomme');
+	(3, 'droit2', '789', 2, 'batman c\'tun loser'),
+	(4, 'droit3', '101', 3, 'pomme');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

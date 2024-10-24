@@ -1,9 +1,16 @@
+/* 
+Auteur: Anouar Lahmidi
+Date: 10/23/2024
+Fichier: index.js
+Description: Fichier route du lab7
+*/
 var express = require('express');
 var router = express.Router();
 
 var session = require('cookie-session');
 
 var mysql = require('mysql');
+const { redirect } = require('express/lib/response');
 
 var connection = mysql.createConnection({
   host: 'localhost',
@@ -12,12 +19,6 @@ var connection = mysql.createConnection({
   database: 'lab7'
 
 });
-
-let data = {
-  log: '',
-  droit: 0,
-  texte: ''
-}
 
 connection.connect(function (err) {
 
@@ -48,7 +49,7 @@ router.use(session({ secret: 'toDoTopSecret' }))
         if (!err)
             res.render('./pages/user', { title: rows[req.session.user.id-1].login, rows: rows, id: req.session.user.id-1 });
         else {
-          console.log('Error');
+          console.log('QUERY ERROR');
           res.redirect('/');
         }
       });
@@ -82,13 +83,12 @@ router.use(session({ secret: 'toDoTopSecret' }))
           res.render('./pages/index', { title: 'Lab 7 - WRONG LOGIN OR PASSWORD' });
       }
       else {
-        console.log('Error');
+        console.log('QUERY ERROR');
         res.redirect('/');
       }
     });
   })
   .post('/change', function (req, res) {
-    console.log(req.body.droit);
     switch (req.body.droit) {
       case '1':
         var querystring = 'UPDATE Utilisateurs SET texte = "' + req.body.texte + '" WHERE id = "' + req.body.id + '"';
@@ -109,5 +109,11 @@ router.use(session({ secret: 'toDoTopSecret' }))
     connection.query(querystring, function (err, rows) {
       res.redirect('/');
     });
+  })
+  .post('/logout', function(req,res){
+    req.session.user.id=0;
+    req.session.user.login='';
+    req.session.user.password='';
+    res.redirect('/')
   });
 module.exports = router;

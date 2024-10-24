@@ -1,3 +1,9 @@
+<!--
+Auteur: Anouar Lahmidi
+Date: 10/23/2024
+Fichier: user.ejs
+Description: page d'utilisateur du lab5
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,6 +77,9 @@
                 <% }) %>
             </table>
             <% } %>
+              <form action="/logout" method="post">
+                <input type="submit" value="logout">
+              </form>
   </main>
 
   <footer>
