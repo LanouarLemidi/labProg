@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%- include('../partials/head') %>
+</head>
+
+<body>
+
+  <header>
+    <%- include('../partials/header') %>
+  </header>
+
+  <main>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="jumbotron">
+          <table>
+            <tr>
+              <td>
+                T-101
+              </td>
+              <td>
+                T-201
+              </td>
+              <td>
+                Température
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="cylinder">
+                  <div class="line-100"></div>
+                  <div class="line-75"></div>
+                  <div class="line-50"></div>
+                  <div class="line-25"></div>
+                  <div class="water" id="cyl1"></div>
+                </div>
+              </td>
+              <td>
+                <div class="cylinder">
+                  <div class="line-100"></div>
+                  <div class="line-75"></div>
+                  <div class="line-50"></div>
+                  <div class="line-25"></div>
+                  <div class="water" id="cyl2"></div>
+                </div>
+              </td>
+              <td>
+                <div class="cylinderT">
+                  <div class="temp"></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td id="valNivGB">
+                100%
+              </td>
+              <td id="valNivPB">
+                50%
+              </td>
+              <td id="valTmpPB">
+                55°C
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="jumbotron">
+          <table>
+            <tr>
+              <th></th>
+              <th>État</th>
+              <th>Commande</th>
+            </tr>
+            <tr>
+              <td>Mode</td>
+              <td id="valMode">Manuel</td>
+              <td>
+                <input type="checkbox" id="cmdMode" onclick="traiterInput(InputType.Mode)">
+              </td>
+            </tr>
+            <tr>
+              <td>NivGB</td>
+              <td id="valNivGB">%</td>
+              <td>
+                <input type="number" min="0" max="100" id="nivGB">
+                <input type="button" onclick="traiterInput(InputType.NivGB)" value="Envoyer">
+              </td>
+            </tr>
+            <tr>
+              <td>NivPB</td>
+              <td id="valNivPB">%</td>
+              <td>
+                <input type="number" min="0" max="100" id="nivPB">
+                <input type="button" onclick="traiterInput(InputType.NivPB)" value="Envoyer">
+              </td>
+            </tr>
+            <tr>
+              <td>TmpPB</td>
+              <td id="valTmpPB">°C</td>
+              <td>
+                <input type="number" min="0" max="100" id="tmpPB">
+                <input type="button" onclick="traiterInput(InputType.TmpPB)" value="Envoyer">
+              </td>
+            </tr>
+            <tr>
+              <td>ValveGB</td>
+              <td id="valValveGB">%</td>
+              <td>
+                <input type="number" min="0" max="100" id="valveGB">
+                <input type="button" onclick="traiterInput(InputType.ValveGB)" value="Envoyer">
+              </td>
+            </tr>
+            <tr>
+              <td>ValvePB</td>
+              <td id="valValvePB">%</td>
+              <td>
+                <input type="number" min="0" max="100" id="valvePB">
+                <input type="button" onclick="traiterInput(InputType.ValvePB)" value="Envoyer">
+              </td>
+            </tr>
+            <tr>
+              <td>ValveEC</td>
+              <td id="valValveEC">%</td>
+              <td>
+                <input type="number" min="0" max="100" id="valveEC">
+                <input type="button" onclick="traiterInput(InputType.ValveEC)" value="Envoyer">
+              </td>
+            </tr>
+            <tr>
+              <td>ValveEF</td>
+              <td id="valValveEF">%</td>
+              <td>
+                <input type="number" min="0" max="100" id="valveEF">
+                <input type="button" onclick="traiterInput(InputType.ValveEF)" value="Envoyer">
+              </td>
+            </tr>
+            <tr>
+              <td>ValveEEC</td>
+              <td id="valValveEEC">off</td>
+              <td>
+                <input type="checkbox" id="cmdValveEEC" onclick="traiterInput(InputType.ValveEEC)">
+              </td>
+            </tr>
+            <tr>
+              <td>ValveEEF</td>
+              <td id="valValveEEF">off</td>
+              <td>
+                <input type="checkbox" id="cmdValveEEF" onclick="traiterInput(InputType.ValveEEF)">
+              </td>
+            </tr>
+            <tr>
+              <td>Pompe</td>
+              <td id="valPompe">off</td>
+              <td>
+                <input type="checkbox" id="cmdPompe" onclick="traiterInput(InputType.Pompe)">
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <%- include('../partials/footer') %>
+  </footer>
+
+  <script>
+    const InputType = {
+      Mode: 0,
+      NivGB: 1,
+      NivPB: 2,
+      TmpPB: 3,
+      ValveGB: 4,
+      ValvePB: 5,
+      ValveEC: 6,
+      ValveEF: 7,
+      ValveEEC: 8,
+      ValveEEF: 9,
+      Pompe: 10
+    };
+    function traiterInput(typ) {
+      switch (typ) {
+        case InputType.Mode:
+          console.log(document.getElementById('cmdMode').checked);
+          break;
+        case InputType.NivGB:
+          var nivGB = document.getElementById('nivGB').value;
+          if(nivGB >= 0 && nivGB <= 100)
+            console.log(nivGB);
+          else
+            alert("Veuillez entrer une valeur entre 0 et 100 pour le niveau de la cuve GB.");
+          break;
+        case InputType.NivPB:
+          var nivPB = document.getElementById('nivPB').value;
+          if(nivPB >= 0 && nivPB <= 100)
+            console.log(nivPB);
+          else
+            alert("Veuillez entrer une valeur entre 0 et 100 pour le niveau de la cuve PB.");
+          break;
+        case InputType.TmpPB:
+          var tmpPB = document.getElementById('tmpPB').value;
+          if(tmpPB >= 0 && tmpPB <= 100)
+            console.log(tmpPB);
+          else
+            alert("Veuillez entrer une valeur entre 0 et 100 pour la température de la cuve PB.");
+          break;
+        case InputType.ValveGB:
+          var valveGB = document.getElementById('valveGB').value;
+          if(valveGB >= 0 && valveGB <= 100)
+            console.log(valveGB);
+          else
+            alert("Veuillez entrer une valeur entre 0 et 100 pour la valve de la cuve GB.");
+          break;
+        case InputType.ValvePB:
+          var valvePB = document.getElementById('valvePB').value;
+          if(valvePB >= 0 && valvePB <= 100)
+            console.log(valvePB);
+          else
+            alert("Veuillez entrer une valeur entre 0 et 100 pour la valve de la cuve PB.");
+          break;
+        case InputType.ValveEC:
+          var valveEC = document.getElementById('valveEC').value;
+          if(valveEC >= 0 && valveEC <= 100)
+            console.log(valveEC);
+          else
+            alert("Veuillez entrer une valeur entre 0 et 100 pour la valve d'eau chaude.");
+          break;
+        case InputType.ValveEF:
+          var valveEF = document.getElementById('valveEF').value;
+          if(valveEF >= 0 && valveEF <= 100)
+            console.log(valveEF);
+          else
+            alert("Veuillez entrer une valeur entre 0 et 100 pour la valve d'eau froide.");
+          break;
+        case InputType.ValveEEC:
+          console.log(document.getElementById('cmdValveEEC').checked);
+          break;
+        case InputType.ValveEEF:
+          console.log(document.getElementById('cmdValveEEF').checked);
+          break;
+        case InputType.Pompe:
+          console.log(document.getElementById('cmdPompe').checked);
+          break;
+      }
+    }
+  </script>
+</body>
+
+</html>
