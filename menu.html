@@ -99,9 +99,9 @@
                     max: 10,
                 });
                 $("#plus").click(function() {
-                    value++;
-                    gauge.refresh(value);
-                    if (value <= 10 && value >= 0) {
+                    if (value < 10 && value >= 0) {
+                        value++;
+                        gauge.refresh(value);
                         $("#alert").hide();
                         $(".progress-bar").css("width", (value * 10) + "%");
                     } else {
@@ -109,9 +109,9 @@
                     }
                 });
                 $("#minus").click(function() {
-                    value--;
+                    if (value > 0 && value <= 10) {
+                        value--;
                         gauge.refresh(value);
-                    if (value >= 0 && value <= 10) {
                         $("#alert").hide();
                         $(".progress-bar").css("width", (value * 10) + "%");
                     } else {
