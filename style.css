@@ -1,0 +1,41 @@
+/* 
+    Anouar Lahmidi 2025-08-26
+    Feuille de styles
+*/
+#M
+{
+    color: darkmagenta;
+    font-size: 200%;
+}
+#special
+{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#special:hover
+{
+    color: red;
+    font-size: 500%;
+}
+h1
+{
+    margin: auto;
+    text-align: center;
+}
+html
+{
+    background-image: url('back.jpg');
+}
+#principaux
+{
+    opacity: 80%;
+}
+#desserts
+{
+    border: dotted pink;
+}
+body
+{
+    margin: auto;
+    width: 50%;
+    color: rgb(136, 12, 230);
+}
