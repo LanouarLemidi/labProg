@@ -85,8 +85,10 @@
                 <button type="button" class="btn btn-secondary" id="minus">-</button>
             </div>
         </div>
+        <div id="alert" class="alert alert-warning">La valeur doit être entre 0 et 10.</div>
         <script>
             $(function() {
+                $("#alert").hide();
                 var value = 5; // Valeur gauge
                 var gauge = new JustGage({
                     id: "gauge",
@@ -95,15 +97,21 @@
                     max: 10,
                 });
                 $("#plus").click(function() {
-                    if (value < 10) {
-                        value++;
-                        gauge.refresh(value);
+                    value++;
+                    gauge.refresh(value);
+                    if (value <= 10 && value >= 0) {
+                        $("#alert").hide();
+                    } else {
+                        $("#alert").show();
                     }
                 });
                 $("#minus").click(function() {
-                    if (value > 0) {
-                        value--;
+                    value--;
                         gauge.refresh(value);
+                    if (value >= 0 && value <= 10) {
+                        $("#alert").hide();
+                    } else {
+                        $("#alert").show();
                     }
                 });
             });
