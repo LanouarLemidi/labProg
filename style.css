@@ -23,7 +23,12 @@ h1
 }
 html
 {
-    background-image: url('back.jpg');
+    background-image: url('background.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: contain;
+    background-color: #ffde59;
 }
 #principaux
 {
@@ -35,7 +40,5 @@ html
 }
 body
 {
-    margin: auto;
-    width: 50%;
     color: rgb(136, 12, 230);
 }
