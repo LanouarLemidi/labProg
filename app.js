@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+app.set('view engine', 'ejs');
 
 app.get('/', function (req, res, next) {
   res.send('<a href="/contact">Contact</a>');
@@ -11,12 +12,9 @@ app.get('/contact', function (req, res, next) {
 
 app.get('/module/:nb', function (req, res, next) {
   var moduleNumber = req.params.nb;
-  var text;
-  if(moduleNumber >=1 && moduleNumber <=6)
-    text = 'Module numéro: ' + moduleNumber;
-  else
-    text = 'Module inconnu';
-  res.send(text +'<br> <a href="/">Accueil</a>');
+  if(!(moduleNumber >=1 && moduleNumber <=6))
+    moduleNumber = 'Module inconnu';
+  res.render('module', { moduleNumber: moduleNumber});
 });
 
 app.use(function(req, res, next) {
