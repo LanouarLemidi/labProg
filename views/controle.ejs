@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>Contrôle</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <% for( i in modules ) { %>
+                    <a href="/module/<%= parseInt(i, 10) + 1 %>">
+                        <h2>Module <%= parseInt(i, 10) + 1 %> <%= modules[i] ? "on" : "off" %></h2>
+                    </a>
+        <% } %>
+        <a href="/reset"><h3>Réinitialiser</h3></a>
+        <a href="/"><h3>Accueil</h3></a>
+    </body>
+</html> 

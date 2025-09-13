@@ -1,20 +1,40 @@
 var express = require('express');
 var app = express();
 app.set('view engine', 'ejs');
+const modules = [false, false, false, false, false, false];
 
 app.get('/', function (req, res, next) {
-  res.send('<a href="/contact">Contact</a>');
+  res.render('index');
 });
 
 app.get('/contact', function (req, res, next) {
-  res.send('<table><tr><th>Nom</th><th>Prénom</th><th>Code Postale</th><th>courriel</th><th>Téléphone</th></tr><tr><td>Doe</td><td>John</td><td>12345</td><td>john.doe@example.com</td><td>555-1234</td></tr></table><a href="/">Accueil</a>');
+  res.render('contact');
 });
 
 app.get('/module/:nb', function (req, res, next) {
-  var moduleNumber = req.params.nb;
-  if(!(moduleNumber >=1 && moduleNumber <=6))
-    moduleNumber = 'Module inconnu';
-  res.render('module', { moduleNumber: moduleNumber});
+  const nb = parseInt(req.params.nb, 10);
+  let moduleNumber;
+  let status;
+  if (nb >= 1 && nb <= 6) {
+    modules[nb - 1] = !modules[nb - 1];
+    status = modules[nb - 1] ? 'on' : 'off';
+    moduleNumber = nb.toString();
+  }
+  else
+    moduleNumber = 'inconnu';
+  res.render('module', { moduleNumber: moduleNumber, status: status });
+  console.log(modules);
+});
+
+app.get('/controle', function (req, res, next) {
+  res.render('controle', { modules: modules });
+});
+
+app.get('/reset', function (req, res, next) {
+  for(i in modules) {
+    modules[i] = false;
+  }
+  res.redirect('/controle');
 });
 
 app.use(function(req, res, next) {
