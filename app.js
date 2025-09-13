@@ -1,3 +1,5 @@
+/* AL 2025-09-12
+fichier serveur du lab 3 */
 var express = require('express');
 var app = express();
 app.set('view engine', 'ejs');
@@ -23,7 +25,6 @@ app.get('/module/:nb', function (req, res, next) {
   else
     moduleNumber = 'inconnu';
   res.render('module', { moduleNumber: moduleNumber, status: status });
-  console.log(modules);
 });
 
 app.get('/controle', function (req, res, next) {
