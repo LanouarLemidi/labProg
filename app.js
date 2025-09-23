@@ -9,10 +9,14 @@ const commande = {
     taxe: 0,                     // Montant des taxes
     total: 0                     // Total final
 };
+let data = "";
+let resultats = [];
 const PORT = 80;
+const fs = require('fs');
 const { render } = require('ejs');
 var express = require('express');
 var app = express();
+
 app.set('view engine', 'ejs');
 app.set('views','./views');
 app.use(express.static('./public'));
@@ -62,7 +66,22 @@ app
   commande.taxe = commande.totalAvantTaxe * 0.15;
   commande.total = commande.totalAvantTaxe + commande.taxe;
   console.log(commande);
+  data = `${req.body.telephone.replace(/\D/g, '')}:${req.body.email}:${req.body.prenom}:${req.body.nom}:${req.body.code_postal}:${req.body.adresse}:${commande.quantite}:${commande.type}:${commande.quantiteExtra}:${(commande.total.toFixed(2))}:${req.body.mode_paiement}\n`;
+  fs.appendFileSync('historique.txt', data);
+  console.log(data);
   res.render('pages/result', {commande: commande});
+})
+
+.get('/historique', function (req, res, next) {
+  resultats = [];
+  res.render('pages/historique', { resultats: resultats });
+})
+
+.post('/historique', function (req, res, next) {
+  const tele = req.body.telephone.replace(/\D/g, '');
+  console.log(tele);
+  resultats = chercher(tele);
+  res.render('pages/historique', { resultats: resultats });
 })
 
 .use(function(req, res, next) {
@@ -72,3 +91,29 @@ app
 app.listen(PORT, function () {
   console.log(`listening on port ${PORT}!`);
 });
+
+function chercher(tele){
+  const historique = fs.readFileSync('historique.txt', 'utf-8');
+  const lignes = historique.split("\n");
+  const resultats = [];
+
+  for(let ligne of lignes) {
+    const champs = ligne.split(":");
+    if(champs[0] == tele) {
+      resultats.push({
+        telephone: champs[0],
+        courriel: champs[1],
+        prenom: champs[2],
+        nom: champs[3],
+        code_postal: champs[4],
+        adresse: champs[5],
+        quantite: champs[6],
+        type: champs[7],
+        quantiteExtra: champs[8],
+        total: champs[9],
+        mode_paiement: champs[10]
+      });
+    }
+  }
+  return resultats;
+}
