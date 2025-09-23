@@ -11,9 +11,9 @@
             <div class="jumbotron text-center">
                 <form method="post">
                     <h2>Quel type de pizza?</h2>
-                    <input type="radio" name="type" value="margarita" required> Margarita<br>
-                    <input type="radio" name="type" value="4fromages" required> 4 fromages<br>
-                    <input type="radio" name="type" value="pepperoni" required> Pepperoni<br>
+                    <input type="radio" name="type" value="Hawaïenne" required> Hawaïenne<br>
+                    <input type="radio" name="type" value="AllDressed" required> All Dressed<br>
+                    <input type="radio" name="type" value="Sicilienne" required> Sicilienne<br>
                     <h2>Quel quantité?</h2>
                     <input type="number" name="quantity" min="1" max="99" value="1"><br>
                     <h2>Quel taille?</h2>
@@ -23,12 +23,12 @@
                         <option value="large">Large</option>
                     </select><br>
                     <h2>Extra</h2>
-                    <input type="checkbox" name="extra_cheese" value="yes">Extra cheese<br>
-                    <input type="checkbox" name="extra_pepperoni" value="yes">Extra pepperoni<br>
-                    <input type="checkbox" name="sans_gluten" value="yes">Sans gluten<br>
+                    <input type="checkbox" name="extra_cheese">Extra cheese<br>
+                    <input type="checkbox" name="extra_pepperoni">Extra pepperoni<br>
+                    <input type="checkbox" name="sans_gluten">Sans gluten<br>
                     <h2>Quel adresse?</h2>
                     <input type="textarea" name="adresse" placeholder="votre adresse" required><br>
-                    <h2>Code postal? exemple: A1A 1A1</h2>
+                    <h2>Code postal?</h2>
                     <input type="text" name="code_postal" pattern="[A-Za-z]\d[A-Za-z][ ]?\d[A-Za-z]\d" placeholder="A1A 1A1" required><br>
                     <h2>Quel est votre nom?</h2>
                     <input type="text" name="nom" placeholder="votre nom" required><br>
