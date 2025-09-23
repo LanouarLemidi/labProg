@@ -11,40 +11,41 @@
             <div class="jumbotron text-center">
                 <form method="post">
                     <h2>Quel type de pizza?</h2>
-                    <input type="radio" name="type" value="Hawaïenne" required> Hawaïenne<br>
-                    <input type="radio" name="type" value="AllDressed" required> All Dressed<br>
-                    <input type="radio" name="type" value="Sicilienne" required> Sicilienne<br>
+                    <input class="form-check-input" type="radio" name="type" value="Hawaïenne" required>Hawaïenne<br>
+                    <input class="form-check-input" type="radio" name="type" value="AllDressed" required>All Dressed<br>
+                    <input class="form-check-input" type="radio" name="type" value="Sicilienne" required>Sicilienne<br>
                     <h2>Quel quantité?</h2>
-                    <input type="number" name="quantity" min="1" max="99" value="1"><br>
+                    <input class="form-control-sm" type="number" name="quantity" min="1" max="99" value="1"><br>
                     <h2>Quel taille?</h2>
-                    <select name="size">
+                    <select class="form-control-sm" name="size">
                         <option value="small">Small</option>
                         <option value="medium">Medium</option>
                         <option value="large">Large</option>
                     </select><br>
                     <h2>Extra</h2>
-                    <input type="checkbox" name="extra_cheese">Extra cheese<br>
-                    <input type="checkbox" name="extra_pepperoni">Extra pepperoni<br>
-                    <input type="checkbox" name="sans_gluten">Sans gluten<br>
+                    <input class="form-check-input" type="checkbox" name="extra_cheese">Extra cheese<br>
+                    <input class="form-check-input" type="checkbox" name="extra_pepperoni">Extra pepperoni<br>
+                    <input class="form-check-input" type="checkbox" name="sans_gluten">Sans gluten<br>
                     <h2>Quel adresse?</h2>
-                    <input type="textarea" name="adresse" placeholder="votre adresse" required><br>
+                    <input class="form-control-sm" type="textarea" name="adresse" placeholder="votre adresse" required><br>
                     <h2>Code postal?</h2>
-                    <input type="text" name="code_postal" pattern="[A-Za-z]\d[A-Za-z][ ]?\d[A-Za-z]\d" placeholder="A1A 1A1" required><br>
+                    <input class="form-control-sm" type="text" name="code_postal" pattern="[A-Za-z]\d[A-Za-z][ ]?\d[A-Za-z]\d" placeholder="A1A 1A1" required><br>
                     <h2>Quel est votre nom?</h2>
-                    <input type="text" name="nom" placeholder="votre nom" required><br>
+                    <input class="form-control-sm" type="text" name="nom" placeholder="votre nom" required><br>
                     <h2>Quel est votre prénom?</h2>
-                    <input type="text" name="prenom" placeholder="votre prénom" required><br>
+                    <input class="form-control-sm" type="text" name="prenom" placeholder="votre prénom" required><br>
                     <h2>Quel est votre numéro de téléphone?</h2>
-                    <input type="text" name="telephone" pattern="(\+1\s?)?(\(?\d{3}\)?[\s\-\.]?)\d{3}[\s\-\.]?\d{4}|\d{10}" placeholder="(123) 456-7890" required><br>
+                    <input class="form-control-sm" type="text" name="telephone" pattern="(\+1\s?)?(\(?\d{3}\)?[\s\-\.]?)\d{3}[\s\-\.]?\d{4}|\d{10}" placeholder="(123) 456-7890" required><br>
                     <h2>Quel est votre email?</h2>
-                    <input type="email" name="email" placeholder="votre email" required><br>
+                    <input class="form-control-sm" type="email" name="email" placeholder="votre email" required><br>
                     <h2>Mode de paiement?</h2>
-                    <select name="mode_paiement">
+                    <select class="form-control-sm" name="mode_paiement">
                         <option value="carte credit">Carte de crédit</option>
                         <option value="paypal">PayPal</option>
                         <option value="virement bancaire">Virement bancaire</option>
                     </select><br>
-                    <input type="submit" value="Confirmer choix">
+                    <br>
+                    <input class="btn btn-primary" type="submit" value="Confirmer choix">
                 </form>
             </div>
         </main>

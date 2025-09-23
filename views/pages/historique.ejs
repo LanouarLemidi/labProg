@@ -11,8 +11,9 @@
             <div class="jumbotron text-center">
                 <form method="post">
                     <h2>Entrez votre numéro de téléphone pour voir l'historique de vos commandes:</h2>
-                    <input type="text" name="telephone" pattern="(\+1\s?)?(\(?\d{3}\)?[\s\-\.]?)\d{3}[\s\-\.]?\d{4}|\d{10}" placeholder="(123) 456-7890" required><br>
-                    <input type="submit" value="Voir l'historique">
+                    <input class="form-control-sm" type="text" name="telephone" pattern="(\+1\s?)?(\(?\d{3}\)?[\s\-\.]?)\d{3}[\s\-\.]?\d{4}|\d{10}" placeholder="(123) 456-7890" required><br>
+                    <br>
+                    <input class="btn btn-primary" type="submit" value="Voir l'historique">
                 </form>
                 <% if(resultats.length > 0) { %>
                     <h1>Historique des commandes:</h1>
@@ -34,7 +35,7 @@
                             <% resultats.forEach(function(commande) { %>
                             <tr>
                                 <td><%= commande.telephone %></td>
-                                <td><%= commande.email %></td>
+                                <td><%= commande.courriel %></td>
                                 <td><%= commande.prenom %></td>
                                 <td><%= commande.nom %></td>
                                 <td><%= commande.code_postal %></td>
