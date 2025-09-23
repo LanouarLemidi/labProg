@@ -1,59 +1,94 @@
+<!--
+ * @ Author: Anouar Lahmidi
+ * @ Create Time: 2025-09-23 00:18:57
+ * @ Modified by: Anouar Lahmidi
+ * @ Modified time: 2025-09-23 02:29:12
+ * @ Description: Page d'historique des commandes avec formulaire de recherche
+ -->
+
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <%- include('../partials/head') %>
-    </head>
-    <body class="container">
-        <header>
-            <%- include('../partials/header') %>
-        </header>
-        <main>
-            <div class="jumbotron text-center">
-                <form method="post">
-                    <h2>Entrez votre numéro de téléphone pour voir l'historique de vos commandes:</h2>
-                    <input class="form-control-sm" type="text" name="telephone" pattern="(\+1\s?)?(\(?\d{3}\)?[\s\-\.]?)\d{3}[\s\-\.]?\d{4}|\d{10}" placeholder="(123) 456-7890" required><br>
-                    <br>
-                    <input class="btn btn-primary" type="submit" value="Voir l'historique">
-                </form>
-                <% if(resultats.length > 0) { %>
-                    <h1>Historique des commandes:</h1>
-                    <div class="table-responsive">
-                        <table class="table table-warning table-hover">
+
+<head>
+    <%- include('../partials/head') %>
+</head>
+
+<body class="container">
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <main>
+        <div class="jumbotron text-center">
+            <form method="post">
+                <h2>Entrez votre numéro de téléphone pour voir l'historique de vos commandes:</h2>
+                <input class="form-control-sm" type="text" name="telephone"
+                    pattern="(\+1\s?)?(\(?\d{3}\)?[\s\-\.]?)\d{3}[\s\-\.]?\d{4}|\d{10}" placeholder="(123) 456-7890"
+                    required><br>
+                <br>
+                <input class="btn btn-primary" type="submit" value="Voir l'historique">
+            </form>
+            <% if(resultats.length> 0) { %>
+                <h1>Historique des commandes:</h1>
+                <div class="table-responsive">
+                    <table class="table table-warning table-hover">
+                        <tr>
+                            <th>Téléphone</th>
+                            <th>Email</th>
+                            <th>Prénom</th>
+                            <th>Nom</th>
+                            <th>Code Postal</th>
+                            <th>Adresse</th>
+                            <th>Quantité</th>
+                            <th>Type de Pizza</th>
+                            <th>Extra</th>
+                            <th>Total ($)</th>
+                            <th>Mode de Paiement</th>
+                        </tr>
+                        <% resultats.forEach(function(commande) { %>
                             <tr>
-                                <th>Téléphone</th>
-                                <th>Email</th>
-                                <th>Prénom</th>
-                                <th>Nom</th>
-                                <th>Code Postal</th>
-                                <th>Adresse</th>
-                                <th>Quantité</th>
-                                <th>Type de Pizza</th>
-                                <th>Extra</th>
-                                <th>Total ($)</th>
-                                <th>Mode de Paiement</th>
-                            </tr>
-                            <% resultats.forEach(function(commande) { %>
-                            <tr>
-                                <td><%= commande.telephone %></td>
-                                <td><%= commande.courriel %></td>
-                                <td><%= commande.prenom %></td>
-                                <td><%= commande.nom %></td>
-                                <td><%= commande.code_postal %></td>
-                                <td><%= commande.adresse %></td>
-                                <td><%= commande.quantite %></td>
-                                <td><%= commande.type %></td>
-                                <td><%= commande.quantiteExtra %></td>
-                                <td><%= commande.total %>$</td>
-                                <td><%= commande.mode_paiement %></td>
+                                <td>
+                                    <%= commande.telephone %>
+                                </td>
+                                <td>
+                                    <%= commande.courriel %>
+                                </td>
+                                <td>
+                                    <%= commande.prenom %>
+                                </td>
+                                <td>
+                                    <%= commande.nom %>
+                                </td>
+                                <td>
+                                    <%= commande.code_postal %>
+                                </td>
+                                <td>
+                                    <%= commande.adresse %>
+                                </td>
+                                <td>
+                                    <%= commande.quantite %>
+                                </td>
+                                <td>
+                                    <%= commande.type %>
+                                </td>
+                                <td>
+                                    <%= commande.quantiteExtra %>
+                                </td>
+                                <td>
+                                    <%= commande.total %>$
+                                </td>
+                                <td>
+                                    <%= commande.mode_paiement %>
+                                </td>
                             </tr>
                             <% }); %>
-                        </table>
-                    </div>
+                    </table>
+                </div>
                 <% } %>
-            </div>
-        </main>
-        <footer>
-            <%- include('../partials/footer') %>
-        </footer>
-    </body>
+        </div>
+    </main>
+    <footer>
+        <%- include('../partials/footer') %>
+    </footer>
+</body>
+
 </html>

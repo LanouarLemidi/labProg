@@ -1,5 +1,12 @@
-html
-{
+/**
+ * @ Author: Anouar Lahmidi
+ * @ Create Time: 2025-09-22 14:07:46
+ * @ Modified by: Anouar Lahmidi
+ * @ Modified time: 2025-09-23 02:54:27
+ * @ Description: Styles CSS pour l'application de commande de pizzas
+ */
+
+html {
     background-image: url('../images/background.png');
     background-repeat: no-repeat;
     background-position: center;
@@ -7,10 +14,12 @@ html
     background-size: contain;
     background-color: #ffde59;
 }
+
 body {
     background-color: transparent;
 }
+
 .jumbotron {
-    background-color:#ecc426ab;
-;
+    background-color: #ecc426ab;
+    ;
 }
