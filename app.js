@@ -18,8 +18,8 @@ var express = require('express');
 var app = express();
 
 app.set('view engine', 'ejs');
-app.set('views','./views');
-app.use(express.static('./public'));
+app.set('views', __dirname + '/views');
+app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -67,7 +67,7 @@ app
   commande.total = commande.totalAvantTaxe + commande.taxe;
   console.log(commande);
   data = `${req.body.telephone.replace(/\D/g, '')}:${req.body.email}:${req.body.prenom}:${req.body.nom}:${req.body.code_postal}:${req.body.adresse}:${commande.quantite}:${commande.type}:${commande.quantiteExtra}:${(commande.total.toFixed(2))}:${req.body.mode_paiement}\n`;
-  fs.appendFileSync('historique.txt', data);
+  fs.appendFileSync(__dirname + '/historique.txt', data);
   console.log(data);
   res.render('pages/result', {commande: commande});
 })
@@ -93,7 +93,7 @@ app.listen(PORT, function () {
 });
 
 function chercher(tele){
-  const historique = fs.readFileSync('historique.txt', 'utf-8');
+  const historique = fs.readFileSync(__dirname + '/historique.txt', 'utf-8');
   const lignes = historique.split("\n");
   const resultats = [];
 
