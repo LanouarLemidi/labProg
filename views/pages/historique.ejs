@@ -2,7 +2,7 @@
  * @ Author: Anouar Lahmidi
  * @ Create Time: 2025-09-23 00:18:57
  * @ Modified by: Anouar Lahmidi
- * @ Modified time: 2025-09-23 02:29:12
+ * @ Modified time: 2025-09-23 20:56:20
  * @ Description: Page d'historique des commandes avec formulaire de recherche
  -->
 
@@ -19,11 +19,12 @@
     </header>
     <main>
         <div class="jumbotron text-center">
-            <form method="post">
+            <form method="post" class="was-validated">
                 <h2>Entrez votre numéro de téléphone pour voir l'historique de vos commandes:</h2>
                 <input class="form-control-sm" type="text" name="telephone"
-                    pattern="(\+1\s?)?(\(?\d{3}\)?[\s\-\.]?)\d{3}[\s\-\.]?\d{4}|\d{10}" placeholder="(123) 456-7890"
+                    pattern="(\+?1\s?)?(\(?\d{3}\)?[\s\-\.]?)\d{3}[\s\-\.]?\d{4}|\d{10}" placeholder="(123) 456-7890"
                     required><br>
+                <div class="invalid-feedback">Veuillez entrer un numéro de téléphone valide.</div>
                 <br>
                 <input class="btn btn-primary" type="submit" value="Voir l'historique">
             </form>
