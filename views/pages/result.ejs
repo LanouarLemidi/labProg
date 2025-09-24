@@ -2,7 +2,7 @@
  * @ Author: Anouar Lahmidi
  * @ Create Time: 2025-09-22 21:53:06
  * @ Modified by: Anouar Lahmidi
- * @ Modified time: 2025-09-23 02:28:31
+ * @ Modified time: 2025-09-23 22:07:48
  * @ Description: Page de résultat affichant le récapitulatif de la commande
  -->
 
@@ -19,62 +19,46 @@
     </header>
     <main>
         <div class="jumbotron text-center">
-            <table class="table table-warning table-hover">
-                <tr>
-                    <th>QTÉ</th>
-                    <th>PRODUIT</th>
-                    <th>PRIX UNIT. HT</th>
-                    <th>MONTANT HT</th>
-                </tr>
-                <tr>
-                    <td>
-                        <%= commande.quantite %>
-                    </td>
-                    <td>
-                        <%= commande.type %>
-                    </td>
-                    <td>
-                        <%= commande.prixUnitaire.toFixed(2) %>$
-                    </td>
-                    <td>
-                        <%= commande.totalPizza.toFixed(2) %>$
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <%= commande.quantiteExtra %>
-                    </td>
-                    <td>extra</td>
-                    <td>0.50$</td>
-                    <td>
-                        <%= commande.prixExtras.toFixed(2) %>$
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>Total HT</td>
-                    <td>
-                        <%= commande.totalAvantTaxe.toFixed(2) %>$
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>Taxe</td>
-                    <td>
-                        <%= commande.taxe.toFixed(2) %>$
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td class="font-weight-bold">TOTAL</td>
-                    <td>
-                        <%= commande.total.toFixed(2) %>$
-                    </td>
-                </tr>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-warning table-hover">
+                    <tr>
+                        <th>QTÉ</th>
+                        <th>PIZZA</th>
+                        <th>PRIX UNIT. HT</th>
+                        <th>MONTANT HT</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <%= commande.quantite %>
+                        </td>
+                        <td>
+                            <%= commande.type %>
+                        </td>
+                        <td>
+                            <%= commande.prixUnitaire.toFixed(2) %>$
+                        </td>
+                        <td>
+                            <%= commande.totalPizza.toFixed(2) %>$
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="font-weight-bold">TAXE</td>
+                        <td>
+                            <%= commande.taxe.toFixed(2) %>$
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="font-weight-bold">TOTAL</td>
+                        <td>
+                            <%= commande.total.toFixed(2) %>$
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </main>
     <footer>

@@ -2,7 +2,7 @@
  * @ Author: Anouar Lahmidi
  * @ Create Time: 2025-09-19 11:27:35
  * @ Modified by: Anouar Lahmidi
- * @ Modified time: 2025-09-23 02:25:11
+ * @ Modified time: 2025-09-23 22:00:21
  * @ Description: Application de commande de pizzas avec historique
  */
 
@@ -12,11 +12,10 @@ const commande = {
   prixUnitaire: 0,             // Prix unitaire de la pizza
   totalPizza: 0,                // Prix total des pizzas
   quantiteExtra: 0,            // Nombre d'extras
-  prixExtras: 0,               // Prix total des extras
-  totalAvantTaxe: 0,           // Total avant taxes
   taxe: 0,                     // Montant des taxes
   total: 0                     // Total final
 };
+let telephone = "";
 let data = "";
 let resultats = [];
 const PORT = 80;
@@ -37,7 +36,6 @@ app
   })
 
   .post('/', function (req, res, next) {
-    console.log(req.body);
     commande.type = req.body.type;
     commande.quantite = parseInt(req.body.quantity);
     switch (commande.type) {
@@ -51,6 +49,14 @@ app
         commande.prixUnitaire = 6.3;
         break;
     }
+    commande.quantiteExtra = 0;
+    if (req.body.extra_cheese == 'on')
+      commande.quantiteExtra++;
+    if (req.body.extra_pepperoni == 'on')
+      commande.quantiteExtra++;
+    if (req.body.sans_gluten == 'on')
+      commande.quantiteExtra++;
+    commande.prixUnitaire = commande.prixUnitaire + commande.quantiteExtra * 0.5
     switch (req.body.size) {
       case 'small':
         commande.prixUnitaire *= 0.8;
@@ -61,22 +67,15 @@ app
         commande.prixUnitaire *= 1.2;
         break;
     }
-    commande.type = req.body.size + ' ' + commande.type;
+    commande.type = req.body.size + ' ' + commande.type + ' ' + commande.quantiteExtra + ' extra';
     commande.totalPizza = commande.prixUnitaire * commande.quantite;
-    if (req.body.extra_cheese == 'on')
-      commande.quantiteExtra++;
-    if (req.body.extra_pepperoni == 'on')
-      commande.quantiteExtra++;
-    if (req.body.sans_gluten == 'on')
-      commande.quantiteExtra++;
-    commande.prixExtras = commande.quantiteExtra * 0.5;
-    commande.totalAvantTaxe = commande.prixExtras + commande.totalPizza;
-    commande.taxe = commande.totalAvantTaxe * 0.15;
-    commande.total = commande.totalAvantTaxe + commande.taxe;
-    console.log(commande);
-    data = `${req.body.telephone.replace(/\D/g, '')}:${req.body.email}:${req.body.prenom}:${req.body.nom}:${req.body.code_postal}:${req.body.adresse}:${commande.quantite}:${commande.type}:${commande.quantiteExtra}:${(commande.total.toFixed(2))}:${req.body.mode_paiement}\n`;
+    commande.taxe = commande.totalPizza * 0.15;
+    commande.total = commande.totalPizza + commande.taxe;
+    telephone = req.body.telephone.replace(/\D/g, '');
+    if (telephone.length > 10)
+      telephone = telephone.substring(1);
+    data = `${telephone}:${req.body.email}:${req.body.prenom}:${req.body.nom}:${req.body.code_postal}:${req.body.adresse}:${commande.quantite}:${commande.type}:${(commande.total.toFixed(2))}:${req.body.mode_paiement}\n`;
     fs.appendFileSync(__dirname + '/historique.txt', data);
-    console.log(data);
     res.render('pages/result', { commande: commande });
   })
 
@@ -86,8 +85,9 @@ app
   })
 
   .post('/historique', function (req, res, next) {
-    const tele = req.body.telephone.replace(/\D/g, '');
-    console.log(tele);
+    let tele = req.body.telephone.replace(/\D/g, '');
+    if (tele.length > 10)
+      tele = tele.substring(1);
     resultats = chercher(tele);
     res.render('pages/historique', { resultats: resultats });
   })
@@ -101,7 +101,11 @@ app.listen(PORT, function () {
 });
 
 function chercher(tele) {
-  const historique = fs.readFileSync(__dirname + '/historique.txt', 'utf-8');
+  const historiquePath = __dirname + '/historique.txt';
+  if (!fs.existsSync(historiquePath)) {
+    fs.writeFileSync(historiquePath, '');
+  }
+  const historique = fs.readFileSync(historiquePath, 'utf-8');
   const lignes = historique.split("\n");
   const resultats = [];
 
@@ -117,9 +121,8 @@ function chercher(tele) {
         adresse: champs[5],
         quantite: champs[6],
         type: champs[7],
-        quantiteExtra: champs[8],
-        total: champs[9],
-        mode_paiement: champs[10]
+        total: champs[8],
+        mode_paiement: champs[9]
       });
     }
   }
